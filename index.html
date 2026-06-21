@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Zone — Каталог игр виртуальной реальности</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container header__inner">
+            <div class="header__logo">
+                <span class="header__logo-icon">
+                    <img src="img/vrzone.png" alt="">
+                </span>
+                <span class="header__logo-text">VR Zone</span>
+            </div>
+            <nav class="header__nav">
+                <a href="#catalog" class="header__link">Каталог</a>
+                <a href="#about" class="header__link">О проекте</a>
+                <button class="header__admin-btn" id="adminBtn" title="Панель администратора">🛠️</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="container hero__inner">
+            <h1 class="hero__title">Мир виртуальной реальности</h1>
+            <p class="hero__subtitle">Исследуй лучшие VR-игры в нашей коллекции. Погрузись в невероятные миры!</p>
+            <img class="img-hero" src="img/лого.gif" alt="">
+            <img class="img-hero" src="img/новинка.gif" alt="">
+            <a href="#catalog" class="hero__cta">Смотреть каталог ↓</a>
+        </div>
+    </section>
+
+    <!-- Каталог игр -->
+    <section class="catalog" id="catalog">
+        <div class="container">
+            <h2 class="section-title">Каталог VR-игр</h2>
+            <div class="catalog__grid" id="catalogGrid">
+                <!-- Карточки будут отрисованы через JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- О проекте -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">О проекте</h2>
+            <div class="about__content">
+                <div class="about__text">
+                    <p><strong>VR Zone</strong> — Компьютерный клуб виртуальной реальности. Мы собираем информацию о самых захватывающих VR-проектах, чтобы ты мог выбрать идеальную игру для погружения.</p>
+                </div>
+                <div class="about__stats">
+                    <div class="about__stat">
+                        <span class="about__stat-num" id="gamesCount">0</span>
+                        <span class="about__stat-label">Игр в каталоге</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© 2026 VR Zone. Сделано для любителей VR</p>
+            <a href="Отчет-Легостаева-ИС-2.pdf" class="header__link">Ссылка на отчет</a>
+        </div>
+    </footer>
+
+    <!-- Модальное окно ввода пароля -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal modal--small">
+            <div class="modal__header">
+                <h2 class="modal__title">Вход в админ-панель</h2>
+                <button class="modal__close" id="passwordModalClose">&times;</button>
+            </div>
+            <div class="modal__body">
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label class="form-label" for="passwordInput">Введите пароль администратора</label>
+                        <input class="form-input" type="password" id="passwordInput" placeholder="Введите пароль" required autocomplete="off">
+                    </div>
+                    <div class="password-error" id="passwordError">Неверный пароль. Попробуйте снова.</div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary" id="passwordSubmit">Войти</button>
+                        <button type="button" class="btn btn--outline" id="passwordCancel">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно админ-панели -->
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal">
+            <div class="modal__header">
+                <h2 class="modal__title">🛠️ Панель администратора</h2>
+                <button class="modal__close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal__body">
+                <!-- Форма добавления/редактирования -->
+                <form class="admin-form" id="gameForm">
+                    <h3 class="admin-form__title" id="formTitle">Добавить новую игру</h3>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gameTitle">Название игры</label>
+                        <input class="form-input" type="text" id="gameTitle" placeholder="Half-Life: Alyx" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gameDesc">Описание</label>
+                        <textarea class="form-input form-textarea" id="gameDesc" placeholder="Опишите игру..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gameGenre">Жанр</label>
+                        <input class="form-input" type="text" id="gameGenre" placeholder="Шутер, Приключения..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gamePlatform">Платформа</label>
+                        <input class="form-input" type="text" id="gamePlatform" placeholder="SteamVR, Oculus, PSVR2..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gameYear">Год выпуска</label>
+                        <input class="form-input" type="number" id="gameYear" placeholder="2024" min="2010" max="2030" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gameRating">Рейтинг (1–10)</label>
+                        <input class="form-input" type="number" id="gameRating" placeholder="9.5" min="1" max="10" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Медиа-файлы (ссылки на изображения и видео)</label>
+                        <div id="mediaList">
+                            <div class="media-row">
+                                <select class="form-select media-type" data-index="0">
+                                    <option value="image">Изображение</option>
+                                    <option value="video">Видео (YouTube embed)</option>
+                                </select>
+                                <input class="form-input media-url" type="url" data-index="0" placeholder="https://example.com/image.jpg" required>
+                                <button type="button" class="btn-icon media-remove" data-index="0" title="Удалить">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn--small btn--outline" id="addMediaBtn">+ Добавить медиа</button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary" id="formSubmit">Добавить игру</button>
+                        <button type="button" class="btn btn--outline" id="formCancel">Отмена</button>
+                    </div>
+                </form>
+
+                <!-- Список игр для управления -->
+                <div class="admin-list">
+                    <h3 class="admin-form__title">Управление играми</h3>
+                    <div id="adminGameList">
+                        <!-- Список будет отрисован через JS -->
+                    </div>
+                </div>
+
+                <!-- Смена пароля -->
+                <div class="admin-form" style="margin-top: 16px; border-top: 1px solid var(--gray-200); padding-top: 24px;">
+                    <h3 class="admin-form__title">Сменить пароль</h3>
+                    <form id="changePasswordForm">
+                        <div class="form-group">
+                            <label class="form-label" for="currentPassword">Текущий пароль</label>
+                            <input class="form-input" type="password" id="currentPassword" placeholder="Введите текущий пароль" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="newPassword">Новый пароль</label>
+                            <input class="form-input" type="password" id="newPassword" placeholder="Введите новый пароль" required minlength="4" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Подтвердите новый пароль</label>
+                            <input class="form-input" type="password" id="confirmPassword" placeholder="Повторите новый пароль" required minlength="4" autocomplete="off">
+                        </div>
+                        <div class="password-success" id="changePasswordSuccess">✅ Пароль успешно изменён!</div>
+                        <div class="password-error" id="changePasswordError">❌ Неверный текущий пароль или пароли не совпадают.</div>
+                        <button type="submit" class="btn btn--primary">Сменить пароль</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра игры -->
+    <div class="modal-overlay" id="gameModal">
+        <div class="modal modal--game">
+            <div class="modal__header">
+                <h2 class="modal__title" id="gameModalTitle">Название игры</h2>
+                <button class="modal__close" id="gameModalClose">&times;</button>
+            </div>
+            <div class="modal__body">
+                <div class="game-detail">
+                    <div class="game-detail__slider" id="gameDetailSlider">
+                        <!-- Слайдер будет отрисован через JS -->
+                    </div>
+                    <div class="game-detail__info">
+                        <p class="game-detail__desc" id="gameDetailDesc"></p>
+                        <div class="game-detail__meta">
+                            <span class="game-detail__tag" id="gameDetailGenre"></span>
+                            <span class="game-detail__tag" id="gameDetailPlatform"></span>
+                            <span class="game-detail__tag" id="gameDetailYear"></span>
+                        </div>
+                        <div class="game-detail__rating" id="gameDetailRating"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
